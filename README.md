@@ -11,7 +11,7 @@ This plugin builds the pages you created in Nebo.
   - [Adding your styles](#adding-your-styles)
   - [Adding your components](#adding-your-components)
   - [Configuration Options](#configuration-options)
-- [Questions and feedback](#questions-and-feedback)
+  - [Questions and feedback](#questions-and-feedback)
 
 ## Install
 1. Sign up for [Nebo](https://app.nebohq.com/users/sign_up). After you've signed in, navigate to "Settings" on the side bar.
@@ -101,8 +101,7 @@ export default directory;
 If your `configPath` has been changed, it will be `http://localhost:8000/[CONFIG_PATH_FILE_NAME].css`.
 
 ### Adding your components
-1. On the Nebo website, navigate to "Developer" settings in the Nebo App.
-   Add `[YOUR_PRODUCTION_URL]/nebo-config.js`<sup>1</sup> or `[YOUR_DEVELOPMENT_URL]/nebo-config.js`<sup>2</sup> to "Javascript Source URL".
+1. On the Nebo website, navigate to "Developer" settings in the Nebo App. Add `[YOUR_PRODUCTION_URL]/nebo-config.js`<sup>1</sup> or `[YOUR_DEVELOPMENT_URL]/nebo.js`<sup>2</sup> to "Javascript Source URL".
 2. If you are using the production URL, make sure you have deployed your app at least once with `gatsby-plugin-nebo` installed for the URL to become available.
 3. In your code, navigate to `./src/config/nebo-config.js` (or your `configPath`). Add your components in the indicated space.
 

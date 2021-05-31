@@ -87,6 +87,7 @@ exports.createPages = async ({ actions, graphql }, {
   if (!pageTemplatePath) return;
 
   const ignoreSlugs = new Set(ignoredPageSlugs);
+
   pages.forEach((page) => {
     const { slug } = page;
     if (ignoreSlugs.has(slug)) return;
