@@ -11,7 +11,7 @@ This plugin builds the pages you created in Nebo.
   - [Adding your styles](#adding-your-styles)
   - [Adding your components](#adding-your-components)
   - [Configuration Options](#configuration-options)
-  - [Questions and feedback](#questions-and-feedback)
+- [Questions and feedback](#questions-and-feedback)
 
 ## Install
 1. Sign up for [Nebo](https://app.nebohq.com/users/sign_up). After you've signed in, navigate to "Settings" on the side bar.
