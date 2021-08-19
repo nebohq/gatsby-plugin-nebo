@@ -1,12 +1,13 @@
 {
   "name": "gatsby-plugin-nebo",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Builds embeddable components from https://nebohq.com",
   "main": "index.js",
   "author": "Nebo Engineering",
   "license": "MIT",
   "homepage": "https://nebohq.com",
   "repository": "github:nebohq/gatsby-plugin-nebo",
+  "bin": "./bin/nebo.js",
   "keywords": [
     "gatsby",
     "gatsby-plugin",
