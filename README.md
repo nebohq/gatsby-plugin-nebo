@@ -43,7 +43,7 @@ yarn run nebo init --access-token=your-access-token
   "resolve": "gatsby-plugin-nebo",
   "options": {
     "accessToken": "[YOUR ACCESS TOKEN]",
-    "pagePath": "./NeboPage.jsx"
+    "pageTemplatePath": "./NeboPage.jsx"
   }
 }
 ```
