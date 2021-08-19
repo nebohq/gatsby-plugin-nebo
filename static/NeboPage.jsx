@@ -5,12 +5,7 @@ import NeboComponent, { NeboHead } from './nebo';
 const NeboPage = ({ pageContext: { schema } }) => {
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8"/>
-        <meta name="hi" content="bye"/>
-        <NeboHead schema={schema} />
-      </Helmet>
-
+      <NeboHead schema={schema} wrapper={Helmet} />
       <NeboComponent schema={schema} />
     </>
   )

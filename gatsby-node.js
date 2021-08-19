@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const path = require('path');
 
 exports.pluginOptionsSchema = ({ Joi }) => Joi.object({
   accessToken: Joi.string().required(),
@@ -95,7 +96,7 @@ exports.createPages = async ({ actions, graphql }, {
     actions.createPage({
       path: slug.replace(/(^\/)|(\/$)/g, '') || '/',
       context: { schema: page },
-      component: require.resolve(pageTemplatePath),
+      component: require.resolve(path.resolve(pageTemplatePath)),
     });
   });
 };

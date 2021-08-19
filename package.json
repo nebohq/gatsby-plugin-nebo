@@ -26,8 +26,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@nebohq/nebo": "^0.2.2-alpha.0",
-    "@nebohq/plugin": "^0.2.1-alpha.5",
+    "@nebohq/nebo": "^0.2.2",
     "node-fetch": "^2.6.1"
   }
 }

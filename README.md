@@ -16,34 +16,41 @@ This plugin builds the pages you created in Nebo.
 ## Install
 1. Sign up for [Nebo](https://app.nebohq.com/users/sign_up). After you've signed in, navigate to "Settings" on the side bar.
 
-2. Find and copy the access token. You can find it in the "Developers" section:
-   
-<img alt="Access Token" height="150px" src="https://res.cloudinary.com/hzimreaxl/image/upload/v1622158327/setup-developers.png"/>
-
-3. Set up the plugin in your `gatsby-config.js`, adding in your access token:
-
-```js
-module.exports = {
-  plugins: [
-    ...otherPlugins,
-    {
-      resolve: 'gatsby-plugin-nebo',
-      // make sure to provide your access token below!
-      options: { accessToken: '[YOUR ACCESS KEY HERE]' },
-    },
-  ],
-};
-```
-
-4. Install `gatsby-plugin-nebo` and `@nebohq/nebo`:
+2. Install `gatsby-plugin-nebo`:
 ```shell
 # if you are using npm and package-lock.json
-npm install gatsby-plugin-nebo @nebohq/nebo
+npm install gatsby-plugin-nebo
 # if you are using yarn and yarn.lock
-yarn add gatsby-plugin-nebo @nebohq/nebo
+yarn add gatsby-plugin-nebo
 ```
 
-5. You're now ready to build pages in Nebo!
+3. Find and copy the access token. You can find it in the "Developers" section:
+
+<img alt="Access Token" height="150px" src="https://res.cloudinary.com/hzimreaxl/image/upload/v1622158327/setup-developers.png"/>
+
+4. Run the following command:
+```shell
+# with npm
+npx nebo init --access-token=your-access-token
+
+# with yarn
+yarn run nebo init --access-token=your-access-token
+```
+
+5. Add your plugin configuration to `gatsby-config.js`. It should look something like this:
+```json
+{
+  "resolve": "gatsby-plugin-nebo",
+  "options": {
+    "accessToken": "[YOUR ACCESS TOKEN]",
+    "pagePath": "./NeboPage.jsx"
+  }
+}
+```
+
+6. This will generate three files: `nebo.config.js`, `nebo.js`, and `NeboPage.jsx`. We'll use the first to import components, the second output Nebo assets for use in settings, and the third is the layout of pages coming from Nebo.
+
+7. You're now ready to build pages in Nebo!
 
 Installing the plugin generates the configuration (`./src/config/nebo-config.js`) and the page template (`./src/templates/nebo-page.js`). 
 If you have filled in your access token in `gatsby-config.js`, it will automatically be added to the configuration.
@@ -71,69 +78,90 @@ If you have filled in your access token in `gatsby-config.js`, it will automatic
 8. Once you reload your development server (`npm run develop`) or redeploy, the page will now be available in your Gatsby app.
 
 ### Adding your styles
-1. On the Nebo website, navigate to "Developer" settings in the Nebo App.
-   Add `[YOUR_PRODUCTION_URL]/nebo-config.css`<sup>1</sup> or `[YOUR_DEVELOPMENT_URL]/nebo-config.css`<sup>2</sup> to CSS Source URL.
-2. If you are using the production URL, make sure you have deployed your app at least once with `gatsby-plugin-nebo` installed for the URL to become available.
-3. In your code, navigate to `./src/config/nebo-config.js` (or your `configPath`). Add your styles in the indicated space:
+1. Go to `nebo.config.js`.
 
-```js
-import { configure } from '@nebohq/nebo';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Nav, Container, Row, Col } from 'react-bootstrap';
-import { Linkedin } from 'react-bootstrap-icons';
+2. Change the `globalStylesPath` option to point to your global styles.
 
-// ADD YOUR STYLES HERE
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/components/directory.module.scss';
-
-const directory = configure({}); // OPTIONS
-
-export default directory;
+```scss
+module.exports = {
+  // other options
+  globalStylesPath: ["./src/stylesheets/application.scss", "./src/stylesheets/globals.css"],
+};
 ```
 
-4. Deploy your Gatsby app. If you are using you local development url, switch it your production one first!
-5. Once your deploy is complete, your styles will be available in the Nebo editor.
+3. Run the following command to compile your Nebo assets. This will build two files `nebo.css` and `nebo.js`. It will also keep track as you change files.
+```shell
+# with npm
+npx nebo watch
 
-<sup>1</sup> If you have changed the `configPath`, the URL will be: `[YOUR_PRODUCTION_URL]/[CONFIG_PATH_FILE_NAME].css`.
+# with yarn
+yarn run nebo watch
+```
 
-<sup>2</sup> Usually, the development URL will be `http://localhost:8000/nebo-config.css`.
-If your `configPath` has been changed, it will be `http://localhost:8000/[CONFIG_PATH_FILE_NAME].css`.
+4. On the Nebo website, navigate to "Developer" settings in the Nebo App. Add `[YOUR_DEVELOPMENT_URL]/nebo.css` (usually something like `localhost:3000/nebo.css`) to "CSS Source URL".
 
-### Adding your components
-1. On the Nebo website, navigate to "Developer" settings in the Nebo App. Add `[YOUR_PRODUCTION_URL]/nebo-config.js`<sup>1</sup> or `[YOUR_DEVELOPMENT_URL]/nebo.js`<sup>2</sup> to "Javascript Source URL".
-2. If you are using the production URL, make sure you have deployed your app at least once with `gatsby-plugin-nebo` installed for the URL to become available.
-3. In your code, navigate to `./src/config/nebo-config.js` (or your `configPath`). Add your components in the indicated space.
+5. Your styles have now been imported! You should see them after refreshing the Nebo editor.
+
+6. Before you commit your changes, please run the following commands. These will compile the Nebo assets for production.
+```shell
+# with npm
+npx nebo
+
+# with yarn
+yarn run nebo
+```
+
+7. After you've deployed your changes, navigate to "Developer" settings in the Nebo App. Switch the "CSS Source URL" to the path of your production Nebo asset (usually `[YOUR_PRODUCTION_URL]/nebo.css`).
+
+
+### Adding your component library
+1. Run the following command to compile your Nebo assets. This will build two files `nebo.css` and `nebo.js`. It will also keep track as you change files.
+```shell
+# with npm
+npx nebo watch
+
+# with yarn
+yarn run nebo watch
+```
+
+2. Navigate to `nebo.js`. Add one of your components to the Nebo directory in the indicated place.
 
 ```js
-import { configure } from '@nebohq/nebo';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Nav, Container, Row, Col } from 'react-bootstrap';
-import { Linkedin } from 'react-bootstrap-icons';
+import Component, { configure, fetchComponent } from '@nebohq/nebo';
 
+const accessToken = '[ACCESS_TOKEN]';
 const directory = configure({
   directory: {
-    // ADD YOUR COMPONENTS HERE
-    Nav,
-    Icons: { LinkedIn },
-    Bootstrap: { Layout: { Container, Row, Col } }
+    // Add your components here
   },
   react: React,
   renderer: ReactDOM,
-  accessToken: '[YOUR_ACCESS_TOKEN]'
+  accessToken,
 });
 
-export default directory;
+const fetchSchema = async (idOrSlug) => fetchComponent({ idOrSlug, accessToken });
+
+const NeboComponent = Component;
+export default NeboComponent;
+export { directory, fetchSchema };
+``` 
+
+3. On the Nebo website, navigate to "Developer" settings in the Nebo App. Add `[YOUR_DEVELOPMENT_URL]/nebo.js` (usually something like `localhost:3000/nebo.js`) to "Javascript Source URL".
+
+4. Your component component has now been imported! You should see it in the library dropdown under "Imported Components".
+
+5. Before you commit your changes, please run the following commands. These will compile the Nebo assets for production.
+```shell
+# with npm
+npx nebo
+
+# with yarn
+yarn run nebo
 ```
 
-4. Deploy your Gatsby app. If you are using you local development url, switch it your production one first!
-5. Once your deploy is complete, your components will be available in the Nebo editor.
-
-<sup>1</sup> If you have changed the `configPath`, the URL will be: `[YOUR_PRODUCTION_URL]/[CONFIG_PATH_FILE_NAME].js`.
-
-<sup>2</sup> Usually, the development URL will be `http://localhost:8000/nebo-config.js`.
-If your `configPath` has been changed, it will be `http://localhost:8000/[CONFIG_PATH_FILE_NAME].js`.
+6. After you've deployed your changes, navigate to "Developer" settings in the Nebo App. Switch the "JavaScript Source URL" to the path of your production Nebo asset (usually `[YOUR_PRODUCTION_URL]/nebo.js`).
 
 ### Configuration Options
 ```js
@@ -144,8 +172,7 @@ module.exports = {
       resolve: 'gatsby-plugin-nebo',
       options: { 
         accessToken: '[ACCESS_KEY]',
-        configPath: `${__dirname}/src/config/nebo-config.js`, // path to the configruation file
-        pageTemplatePath: `${__dirname}/src/templates/nebo-page.js`, // path to the page template
+        pageTemplatePath: `${__dirname}/NeboPage.jsx`, // path to the page template
         ignoredPageSlugs: [] // list of page slugs you want to ignore
       },
     },
@@ -154,7 +181,6 @@ module.exports = {
 ```
 
 - `accessToken` - [required] - used to access your components from your Gatsby app.
-- `configPath` - path to the the Nebo configuration file. This controls which of your components are available in the Nebo editor.
 - `pageTemplatePath` - path to the Nebo page template. This controls the look of your pages.
 - `ignoredPageSlugs` - list of pages to ignore, by their Nebo slug.
 
