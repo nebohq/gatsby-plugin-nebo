@@ -2,11 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import NeboComponent, { NeboHead } from './nebo';
 
-const NeboPage = ({ schema }) => {
+const NeboPage = ({ pageContext: { schema } }) => {
   return (
     <>
       <Helmet>
         <meta charSet="utf-8"/>
+        <meta name="hi" content="bye"/>
         <NeboHead schema={schema} />
       </Helmet>
 

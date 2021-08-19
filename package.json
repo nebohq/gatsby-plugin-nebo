@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-nebo",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.5",
   "description": "Builds embeddable components from https://nebohq.com",
   "main": "index.js",
   "author": "Nebo Engineering",
@@ -26,7 +26,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@nebohq/nebo": "^0.2.1",
+    "@nebohq/nebo": "^0.2.2-alpha.0",
     "@nebohq/plugin": "^0.2.1-alpha.5",
     "node-fetch": "^2.6.1"
   }
