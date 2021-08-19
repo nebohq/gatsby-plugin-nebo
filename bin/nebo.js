@@ -31,7 +31,7 @@ CLI([
       // eslint-disable-next-line no-console
       console.log(JSON.stringify({
         resolve: 'gatsby-plugin-nebo',
-        options: { accessToken, pagePath: defaultSettings.pagePath },
+        options: { accessToken, pageTemplatePath: defaultSettings.pagePath },
       }, null, '  '));
 
       return result;
