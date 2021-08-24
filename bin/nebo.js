@@ -2,6 +2,7 @@
 
 const {
   CLI, Settings, commands: { Compiler, Watcher, Initializer },
+// eslint-disable-next-line import/no-extraneous-dependencies
 } = require('@nebohq/plugin');
 const fs = require('fs');
 const path = require('path');
